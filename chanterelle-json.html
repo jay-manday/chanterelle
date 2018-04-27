@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>chanterelle.json &mdash; Chanterelle 0.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="modules.html" />
+    <link rel="prev" title="Welcome to Chanterelle’s documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Chanterelle
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">chanterelle.json</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#specification">Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genesis-blocks.html">Genesis Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployments.html">Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Chanterelle</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>chanterelle.json</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/chanterelle-json.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="chanterelle-json">
+<span id="id1"></span><h1>chanterelle.json<a class="headerlink" href="#chanterelle-json" title="Permalink to this headline">¶</a></h1>
+<p>A Chanterelle project is primarily described in <code class="docutils literal notranslate"><span class="pre">chanterelle.json</span></code>, which should be placed in the root of your project.
+A sample project is defined below, based on the <a class="reference external" href="https://github.com/f-o-a-m/parking-dao">parking-dao application</a>.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;parking-dao&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;source-dir&quot;</span><span class="p">:</span> <span class="s2">&quot;contracts&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;artifacts-dir&quot;</span><span class="p">:</span> <span class="s2">&quot;build/contracts&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;modules&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;FoamCSR&quot;</span>
+             <span class="p">,</span> <span class="s2">&quot;ParkingAuthority&quot;</span>
+             <span class="p">,</span> <span class="s2">&quot;SimpleStorage&quot;</span>
+             <span class="p">,</span> <span class="s2">&quot;User&quot;</span>
+             <span class="p">,</span> <span class="s2">&quot;ParkingAnchor&quot;</span>
+             <span class="p">,</span> <span class="s2">&quot;Nested.SimpleStorage&quot;</span>
+             <span class="p">],</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zeppelin-solidity&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;libraries&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;FixedLib&quot;</span><span class="p">:</span> <span class="s2">&quot;0x1337133713371337133713371337133713371337&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;AutocompiledLib&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;0xf00dcafe0ea7beef808080801234567890ABCDEF&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;src/MyLibraries/AutocompiledLib.sol&quot;</span>
+          <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;InjectedLib&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;code&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&quot;bytecode&quot;</span><span class="p">:</span> <span class="s2">&quot;0x73deadbeefdeadbeefdeadbeefdeadbeefdeadbeef301460606040...&quot;</span>
+          <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;FetchedLib&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;0x863df6bfa4469f3ead0be8f9f2aae51c91a907b4&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;via&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mainnet&quot;</span><span class="p">,</span> <span class="s2">&quot;rinkeby&quot;</span><span class="p">]</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;networks&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;some-private-net&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://chain-1924-or-1925.roll-the-dice-see-what-you-get.com:8545/&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;chains&quot;</span><span class="p">:</span> <span class="s2">&quot;1924,1925&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;a-different-net&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://mystery-chain.whose-id-always-chang.es:8545/&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;chains&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;solc-output-selection&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;purescript-generator&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;output-path&quot;</span><span class="p">:</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;module-prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;Contracts&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;expression-prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="specification">
+<h2>Specification<a class="headerlink" href="#specification" title="Permalink to this headline">¶</a></h2>
+<p>Note: All filepaths are relative to the <code class="docutils literal notranslate"><span class="pre">chanterelle.json</span></code> file, which is considered the project root.</p>
+<p><code class="docutils literal notranslate"><span class="pre">chanterelle.json</span></code> - specification:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">name</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>: The name of your project (currently unused, for future use with package management)</li>
+<li><code class="docutils literal notranslate"><span class="pre">version</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>: The currrent version of your project (currently unused, for future use with package management)</li>
+<li><code class="docutils literal notranslate"><span class="pre">source-dir</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>:  Where your Solidity contracts are located.</li>
+<li><code class="docutils literal notranslate"><span class="pre">artifacts-dir</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>:  The directory where the contract artifacts (ABI, bytecode, deployment info, etc) will be written. Defaults to <code class="docutils literal notranslate"><span class="pre">build</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">modules</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>: A list of all solidity contracts you wish to compile (see <cite>Modules</cite>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">dependencies</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>: External Solidity (source-code) libraries/dependencies to use when compiling (see <cite>Dependencies</cite>).</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">libraries</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>: Solidity libraries to link against when compiling.</dt>
+<dd><ul class="first last">
+<li>A library may be defined as just an address. This is known as a “Fixed Library”.
+In this case, that address will be fed to solc when compiling contracts that depend on it.
+However, generating genesis blocks will be unavailable as there is no means to get the code for the given library.</li>
+<li>A library may alternatively be defined as an address and a means to fetch the library.
+The address will be fed into solc as with a Fixed Library, however, when generating a genesis block, Chanterelle will attempt
+to compile the library or fetch it from any specified networks.</li>
+<li>If a library is injected as raw bytecode or fetched from a network, that code must begin with a library guard (<code class="docutils literal notranslate"><span class="pre">0x73&lt;addr&gt;3014</span></code>).
+Chanterelle uses this to automagically inject the correct library address into the Genesis block.</li>
+<li>Supported networks to fetch from include: <code class="docutils literal notranslate"><span class="pre">&quot;mainnet&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;ropsten&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rinkeby&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;kovan&quot;</span></code>, and  <code class="docutils literal notranslate"><span class="pre">&quot;localhost&quot;</span></code>,
+as well as any networks defined in the <code class="docutils literal notranslate"><span class="pre">&quot;networks&quot;</span></code> field of your project spec.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">networks</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>: Additional networks to fetch libraries from.</dt>
+<dd><ul class="first last">
+<li>Each network has a required <code class="docutils literal notranslate"><span class="pre">&quot;url&quot;</span></code> field, which tells Chanterelle how to reach a node on that network</li>
+<li>Each network has a required <code class="docutils literal notranslate"><span class="pre">&quot;chains&quot;</span></code> field, which tells Chanterelle which network IDs to accept from that node. The value may either
+be a comma-separated list of network ID numbers (still has to be a string for just one network), or <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code> to accept any network ID.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">solc-output-selection</span></code> - Additional outputs to request from solc (currently unsupported, but see <cite>solc documentation</cite>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">purescript-generator</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>: Options for purescript-web3-generator (see below)</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">purescript-generator</span></code> - options:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">output-path</span></code> - <code class="docutils literal notranslate"><span class="pre">Required</span></code>: Where to place generated PureScript source files, for example this is your PureScript project source directory.</li>
+<li><code class="docutils literal notranslate"><span class="pre">module-prefix</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>: What module name to prefix to your generated PureScript bindings. Note that the generated files will be stored relative to the output path (e.g. if set to <code class="docutils literal notranslate"><span class="pre">Contracts</span></code> as above, code will be generated into <code class="docutils literal notranslate"><span class="pre">src/Contracts</span></code>). Defaults to <code class="docutils literal notranslate"><span class="pre">Contracts</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">expression-prefix</span></code> - <code class="docutils literal notranslate"><span class="pre">Optional</span></code>:  Prefix <cite>all</cite> generated functions with the specified prefix. This is useful if you are depending on external smart contract libraries that name their solidity events or functions that are invalid purescript names.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to Chanterelle’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Martin Allen, Ilya Ostrovskiy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

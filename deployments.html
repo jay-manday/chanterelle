@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deployments &mdash; Chanterelle 0.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing" href="testing.html" />
+    <link rel="prev" title="Libraries" href="libraries.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Chanterelle
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="chanterelle-json.html">chanterelle.json</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compiling.html">Compiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genesis-blocks.html">Genesis Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-scripts">Deploy Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment-example">Deployment Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#invocation">Invocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deployer-arguments">Deployer arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Chanterelle</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Deployments</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/deployments.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deployments">
+<span id="id1"></span><h1>Deployments<a class="headerlink" href="#deployments" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Every contract deployment requires an explicit configuration. Specifically, the configuration is an object of the following type:</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">type</span> <span class="kt">ContractConfig</span> <span class="n">args</span> <span class="ow">=</span>
+    <span class="p">{</span> <span class="n">filepath</span> <span class="ow">::</span> <span class="kt">String</span>
+    <span class="p">,</span> <span class="n">name</span> <span class="ow">::</span> <span class="kt">String</span>
+    <span class="p">,</span> <span class="n">constructor</span> <span class="ow">::</span> <span class="kt">Constructor</span> <span class="n">args</span>
+    <span class="p">,</span> <span class="n">unvalidatedArgs</span> <span class="ow">::</span> <span class="kt">V</span> <span class="p">(</span><span class="kt">Array</span> <span class="kt">String</span><span class="p">)</span> <span class="p">(</span><span class="kt">Record</span> <span class="n">args</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">filepath</span></code> field is the filepath to the solc build artifact relative the the <code class="docutils literal notranslate"><span class="pre">chanterelle.json</span></code> file.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">name</span></code> field is there to name the deployment throughout the logging. (This could dissappear assuming its suffient to name the deployment according to the build artifact filename.)</p>
+<p>The type <code class="docutils literal notranslate"><span class="pre">Constructor</span> <span class="pre">args</span></code> is a type synonym:</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">type</span> <span class="kt">Constructor</span> <span class="n">args</span> <span class="ow">=</span> <span class="n">forall</span> <span class="n">eff</span><span class="o">.</span> <span class="kt">TransactionOptions</span> <span class="kt">NoPay</span> <span class="ow">-&gt;</span> <span class="kt">HexString</span> <span class="ow">-&gt;</span> <span class="kt">Record</span> <span class="n">args</span> <span class="ow">-&gt;</span> <span class="kt">Web3</span> <span class="n">eff</span> <span class="kt">HexString</span>
+</pre></div>
+</div>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">Constructor</span> <span class="pre">args</span></code> is the type a function taking in some <code class="docutils literal notranslate"><span class="pre">TransactionOptions</span> <span class="pre">NoPay</span></code> (constructors are not payable transactions), the deployment bytepurescriptcode, and a record of type <code class="docutils literal notranslate"><span class="pre">Record</span> <span class="pre">args</span></code>. It will format the transaction and submit it via an <code class="docutils literal notranslate"><span class="pre">eth_sendTransaction</span></code> RPC call, returning the transaction hash as a <code class="docutils literal notranslate"><span class="pre">HexString</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">unvalidatedArgs</span></code> field has type <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">(Array</span> <span class="pre">String)</span> <span class="pre">(Record</span> <span class="pre">args)</span></code> where <code class="docutils literal notranslate"><span class="pre">V</span></code> is a type coming from the <a class="reference external" href="https://github.com/purescript/purescript-validation">purescript-validation</a> library. This effectively represents <cite>either</cite> a type of <code class="docutils literal notranslate"><span class="pre">Record</span> <span class="pre">args</span></code> <cite>or</cite> a list of error messages for all arguments which failed to validate.</p>
+<p>It’s possible that your contract requires no arguments for deployment, and in that case chanterelle offers some default values. For example, if the filepath of the build artifact for <code class="docutils literal notranslate"><span class="pre">VerySimpleContract.sol</span></code> is <code class="docutils literal notranslate"><span class="pre">build/VerySimpleContract.json</span></code>, you might end up with something like</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">verySimpleContractConfig</span> <span class="ow">::</span> <span class="kt">ContractConfig</span> <span class="kt">NoArgs</span>
+<span class="nf">verySimpleContractConfig</span> <span class="ow">=</span>
+  <span class="p">{</span> <span class="n">filepath</span><span class="kt">:</span> <span class="s">&quot;build/VerySimpleContract.json&quot;</span>
+  <span class="p">,</span> <span class="n">name</span><span class="kt">:</span> <span class="s">&quot;VerySimpleContract&quot;</span>
+  <span class="p">,</span> <span class="n">constructor</span><span class="kt">:</span> <span class="n">constructorNoArgs</span>
+  <span class="p">,</span> <span class="n">unvalidatedArgs</span><span class="kt">:</span> <span class="n">noArgs</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+<p>Let’s consider the simplest example of a contract configuration requiring a constructor with arguments. Consider the following smart contract:</p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">contract</span> <span class="nx">SimpleStorage</span> <span class="p">{</span>
+
+  <span class="nx">uint256</span> <span class="nx">count</span> <span class="kr">public</span><span class="p">;</span>
+
+  <span class="nx">event</span> <span class="nx">CountSet</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">_count</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">SimpleStorage</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">initialCount</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">count</span> <span class="o">=</span> <span class="nx">initialCount</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">setCount</span><span class="p">(</span><span class="nx">uint256</span> <span class="nx">newCount</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">count</span> <span class="o">=</span> <span class="nx">newCount</span><span class="p">;</span>
+    <span class="nx">emit</span> <span class="nx">CountSet</span><span class="p">(</span><span class="nx">newCount</span><span class="p">));</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Depending on your project configuration, when running <code class="docutils literal notranslate"><span class="pre">chanterelle</span> <span class="pre">compile</span></code> you should end up with something like the following artifacts:</p>
+<ol class="arabic simple">
+<li>The solc artifact <code class="docutils literal notranslate"><span class="pre">build/SimpleStorage.json</span></code></li>
+<li>The generated PureScript file <code class="docutils literal notranslate"><span class="pre">src/Contracts/SimpleStorage.purs</span></code></li>
+</ol>
+<p>In the PureScript module <code class="docutils literal notranslate"><span class="pre">Contracts.SimpleStorage</span></code>, you will find a function</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">constructor</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">e</span><span class="o">.</span> <span class="kt">TransactionOptions</span> <span class="kt">NoPay</span> <span class="ow">-&gt;</span> <span class="kt">HexString</span> <span class="ow">-&gt;</span> <span class="p">{</span><span class="n">initialCount</span> <span class="ow">::</span> <span class="kt">UIntN</span> <span class="p">(</span><span class="kt">D2</span> <span class="kt">:&amp;</span> <span class="kt">D5</span> <span class="kt">:&amp;</span> <span class="kt">DOne</span> <span class="kt">D6</span><span class="p">)}</span> <span class="ow">-&gt;</span> <span class="kt">Web3</span> <span class="n">e</span> <span class="kt">HexString</span>
+</pre></div>
+</div>
+<p>Blurring your eyes a little bit, it’s easy to see that this indeed matches up to the constructor defined in the Solidity file. We could then define the deployment configuration for <code class="docutils literal notranslate"><span class="pre">SimpleStorage</span></code> as</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nn">Contracts.SimpleStorage</span> <span class="k">as</span> <span class="n">SimpleStorage</span>
+
+<span class="nf">simpleStorageConfig</span> <span class="ow">::</span> <span class="kt">ContractConfig</span> <span class="p">(</span><span class="n">initialCount</span> <span class="ow">::</span> <span class="kt">UIntN</span> <span class="p">(</span><span class="kt">D2</span> <span class="kt">:&amp;</span> <span class="kt">D5</span> <span class="kt">:&amp;</span> <span class="kt">DOne</span> <span class="kt">D6</span><span class="p">))</span>
+<span class="nf">simpleStorageConfig</span> <span class="ow">=</span>
+    <span class="p">{</span> <span class="n">filepath</span><span class="kt">:</span> <span class="s">&quot;build/SimpleStorage.json&quot;</span>
+    <span class="p">,</span> <span class="n">name</span><span class="kt">:</span> <span class="s">&quot;SimpleStorage&quot;</span>
+    <span class="p">,</span> <span class="n">constructor</span><span class="kt">:</span> <span class="kt">SimpleStorage</span><span class="o">.</span><span class="n">constructor</span>
+    <span class="p">,</span> <span class="n">unvalidatedArgs</span><span class="kt">:</span> <span class="n">validCount</span>
+    <span class="p">}</span>
+  <span class="kr">where</span>
+    <span class="n">validCount</span> <span class="ow">=</span> <span class="n">uIntNFromBigNumber</span> <span class="n">s256</span> <span class="p">(</span><span class="n">embed</span> <span class="mi">1234</span><span class="p">)</span> <span class="o">??</span> <span class="s">&quot;SimpleStorage: initialCount must be valid uint256&quot;</span>
+</pre></div>
+</div>
+<p>Here you can see where validation is important. Clearly <code class="docutils literal notranslate"><span class="pre">1234</span></code> represents a valid <code class="docutils literal notranslate"><span class="pre">uint</span></code>, but you can easily imagine scenarios where this might save us a lot of trouble– too many characters in an address, an improperly formatted string, an integer is out of a bounds, etc.</p>
+</div>
+<div class="section" id="deploy-scripts">
+<h2>Deploy Scripts<a class="headerlink" href="#deploy-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Deploy scripts are written inside the <code class="docutils literal notranslate"><span class="pre">DeployM</span></code> monad, which is a monad that gives you access to a web3 connection, controlled error handling, and whatever effects you want. The primary workhorse is the <code class="docutils literal notranslate"><span class="pre">deployContract</span></code> function:</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="nf">deployContract</span> <span class="ow">::</span> <span class="kt">TransactionOptions</span> <span class="kt">NoPay</span> <span class="ow">-&gt;</span> <span class="kt">ContractConfig</span> <span class="n">args</span> <span class="ow">-&gt;</span> <span class="kt">DeployM</span> <span class="p">{</span><span class="n">deployAddress</span> <span class="ow">::</span> <span class="kt">Address</span><span class="p">,</span> <span class="n">deployArgs</span> <span class="ow">::</span> <span class="kt">Record</span> <span class="n">args</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>This function takes your contract deployment configuration as defined above and sends the transaction. If no errors are thrown, it will return the address where the contract as deployed as well as the deploy arguments that were validated before the transaction was sent. It will also automatically write to the solc artifact in the <code class="docutils literal notranslate"><span class="pre">artifacts-dir</span></code>, updating the <code class="docutils literal notranslate"><span class="pre">networks</span></code> object with a key value pair mapping the networkId to the deployed address.</p>
+<p>Error hanlding is built in to the <code class="docutils literal notranslate"><span class="pre">DeployM</span></code> monad. Unless you want to customize your deployment with any attempt to use some variant of try/catch, any error encountered before or after a contract deployment will safely terminate the script and you should get an informative message in the logs. It will not terminate while waiting for transactions to go through unless the timeout threshold is reached. You can configure the duration as a command line argument.</p>
+</div>
+<div class="section" id="deployment-example">
+<h2>Deployment Example<a class="headerlink" href="#deployment-example" title="Permalink to this headline">¶</a></h2>
+<p>Consider this example take from the parking-dao example project:</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">module</span> <span class="nn">MyDeployScript</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">ContractConfig</span> <span class="p">(</span><span class="nf">simpleStorageConfig</span><span class="p">,</span> <span class="nf">foamCSRConfig</span><span class="p">,</span> <span class="nf">parkingAuthorityConfig</span><span class="p">)</span>
+
+<span class="kr">type</span> <span class="kt">DeployResults</span> <span class="ow">=</span> <span class="p">(</span><span class="n">foamCSR</span> <span class="ow">::</span> <span class="kt">Address</span><span class="p">,</span> <span class="n">simpleStorage</span> <span class="ow">::</span> <span class="kt">Address</span><span class="p">,</span> <span class="n">parkingAuthority</span> <span class="ow">::</span> <span class="kt">Address</span><span class="p">)</span>
+
+<span class="nf">deployScript</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">eff</span><span class="o">.</span> <span class="kt">DeployM</span> <span class="n">eff</span> <span class="p">(</span><span class="kt">Record</span> <span class="kt">DeployResults</span><span class="p">)</span>
+<span class="nf">deployScript</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="n">deployCfg</span><span class="o">@</span><span class="p">(</span><span class="kt">DeployConfig</span> <span class="p">{</span><span class="n">primaryAccount</span><span class="p">})</span> <span class="ow">&lt;-</span> <span class="n">ask</span>
+  <span class="kr">let</span> <span class="n">bigGasLimit</span> <span class="ow">=</span> <span class="n">unsafePartial</span> <span class="n">fromJust</span> <span class="o">$</span> <span class="n">parseBigNumber</span> <span class="n">decimal</span> <span class="s">&quot;4712388&quot;</span>
+      <span class="n">txOpts</span> <span class="ow">=</span> <span class="n">defaultTransactionOptions</span> <span class="o">#</span> <span class="n">_from</span> <span class="o">?~</span> <span class="n">primaryAccount</span>
+                                         <span class="o">#</span> <span class="n">_gas</span> <span class="o">?~</span> <span class="n">bigGasLimit</span>
+  <span class="n">simpleStorage</span> <span class="ow">&lt;-</span> <span class="n">deployContract</span> <span class="n">txOpts</span> <span class="n">simpleStorageConfig</span>
+  <span class="n">foamCSR</span> <span class="ow">&lt;-</span> <span class="n">deployContract</span> <span class="n">txOpts</span> <span class="n">foamCSRConfig</span>
+  <span class="kr">let</span> <span class="n">parkingAuthorityConfig</span> <span class="ow">=</span> <span class="n">makeParkingAuthorityConfig</span> <span class="p">{</span><span class="n">foamCSR</span><span class="kt">:</span> <span class="n">foamCSR</span><span class="o">.</span><span class="n">deployAddress</span><span class="p">}</span>
+  <span class="n">parkingAuthority</span> <span class="ow">&lt;-</span> <span class="n">deployContract</span> <span class="n">txOpts</span> <span class="n">parkingAuthorityConfig</span>
+  <span class="n">pure</span> <span class="p">{</span> <span class="n">foamCSR</span><span class="kt">:</span> <span class="n">foamCSR</span><span class="o">.</span><span class="n">deployAddress</span>
+       <span class="p">,</span> <span class="n">simpleStorage</span><span class="kt">:</span> <span class="n">simpleStorage</span><span class="o">.</span><span class="n">deployAddress</span>
+       <span class="p">,</span> <span class="n">parkingAuthority</span><span class="kt">:</span> <span class="n">parkingAuthority</span><span class="o">.</span><span class="n">deployAddress</span>
+       <span class="p">}</span>
+</pre></div>
+</div>
+<p>After setting up the <code class="docutils literal notranslate"><span class="pre">TransactionOptions</span></code>, the script first deploys the <code class="docutils literal notranslate"><span class="pre">SimpleStorage</span></code> contract and then the <code class="docutils literal notranslate"><span class="pre">FoamCSR</span></code> contract using their configuration. The <code class="docutils literal notranslate"><span class="pre">ParkingAuthority</span></code> contract requires the address of the <code class="docutils literal notranslate"><span class="pre">FoamCSR</span></code> contract as one of it’s deployment arguments, so you can see us threading it in before deploying. Finally, we simple return all the addresses of the recently deployed contracts to the caller.</p>
+<p>Note that if we simply wanted to terminate the deployment script after the contract deployments there then there’s no point in returning anything at all. However, deployment scripts are useful outside of the context of a standalone script. For example you can run a deployment script before a test suite and then pass the deployment results as an environment to the tests. See the section on testing for an example.</p>
+</div>
+<div class="section" id="invocation">
+<h2>Invocation<a class="headerlink" href="#invocation" title="Permalink to this headline">¶</a></h2>
+<p>Much like with the <a class="reference internal" href="compiling.html#compiling"><span class="std std-ref">compilation phase</span></a>, the deployment phase is invoked with a minimal PureScript boilerplate.
+This script, however, invokes the <code class="docutils literal notranslate"><span class="pre">deployScript</span></code> you defined previously, and may either reside with the rest of your source or more
+methodically in a separate <code class="docutils literal notranslate"><span class="pre">deploy/</span></code> subproject. The latter is demonstrated below</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">module</span> <span class="nn">DeployMain</span> <span class="p">(</span><span class="nf">main</span><span class="p">)</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">Prelude</span>
+
+<span class="kr">import</span> <span class="nn">Chanterelle</span> <span class="p">(</span><span class="nf">deployMain</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff</span> <span class="p">(</span><span class="kt">Eff</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff.Console</span> <span class="p">(</span><span class="kt">CONSOLE</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff.Exception</span> <span class="p">(</span><span class="kt">EXCEPTION</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff.Now</span> <span class="p">(</span><span class="kt">NOW</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Network.Ethereum.Web3</span> <span class="p">(</span><span class="kt">ETH</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Node.FS.Aff</span> <span class="p">(</span><span class="kt">FS</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Node.Process</span> <span class="p">(</span><span class="kt">PROCESS</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">MyDeployScript</span> <span class="p">(</span><span class="nf">deployScript</span><span class="p">)</span> <span class="n">as</span> <span class="kt">MyDeployScript</span>
+
+<span class="nf">main</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">e</span><span class="o">.</span> <span class="kt">Eff</span> <span class="p">(</span><span class="n">now</span> <span class="ow">::</span> <span class="kt">NOW</span><span class="p">,</span> <span class="n">console</span> <span class="ow">::</span> <span class="kt">CONSOLE</span><span class="p">,</span> <span class="n">eth</span> <span class="ow">::</span> <span class="kt">ETH</span><span class="p">,</span> <span class="n">fs</span> <span class="ow">::</span> <span class="kt">FS</span><span class="p">,</span> <span class="n">process</span> <span class="ow">::</span> <span class="kt">PROCESS</span><span class="p">,</span> <span class="n">exception</span> <span class="ow">::</span> <span class="kt">EXCEPTION</span> <span class="o">|</span> <span class="n">e</span><span class="p">)</span> <span class="kt">Unit</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="n">deployMain</span> <span class="kt">MyDeployScript</span><span class="o">.</span><span class="n">deployScript</span>
+</pre></div>
+</div>
+<p>We can then invoke this script as follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pulp build --src-path deploy -I src -m DeployMain --to deploy.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
+node deploy.js --log-level info<span class="p">;</span> <span class="se">\</span>
+rm -f deploy.js
+</pre></div>
+</div>
+<p>One may note the similarities to the invocation of the compiler script, however the build has an additional <code class="docutils literal notranslate"><span class="pre">-I</span> <span class="pre">src</span></code> as your deploy script
+will mostly likely depend on artifacts that are codegen’d into your main source root as well.</p>
+</div>
+<div class="section" id="deployer-arguments">
+<h2>Deployer arguments<a class="headerlink" href="#deployer-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Currently the following command line arguments are supported for the deployment phase when ran with <code class="docutils literal notranslate"><span class="pre">deployMain</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--log-level</span></code>: One of <code class="docutils literal notranslate"><span class="pre">debug</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>, <code class="docutils literal notranslate"><span class="pre">warn</span></code>, or <code class="docutils literal notranslate"><span class="pre">error</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">info</span></code>.
+This option changes the level of logging to the console.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="testing.html" class="btn btn-neutral float-right" title="Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="libraries.html" class="btn btn-neutral" title="Libraries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Martin Allen, Ilya Ostrovskiy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>

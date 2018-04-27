@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compiling &mdash; Chanterelle 0.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Genesis Blocks" href="genesis-blocks.html" />
+    <link rel="prev" title="Dependencies" href="dependencies.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Chanterelle
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="chanterelle-json.html">chanterelle.json</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Compiling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#invoking-the-compiler">Invoking the compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compiler-arguments">Compiler arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="genesis-blocks.html">Genesis Blocks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployments.html">Deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Chanterelle</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Compiling</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/compiling.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compiling">
+<span id="id1"></span><h1>Compiling<a class="headerlink" href="#compiling" title="Permalink to this headline">¶</a></h1>
+<p>Currently, Chanterelle does not have a dedicated command line tool for invoking its functionality. Instead, one writes
+a brief PureScript program to invoke the various features of Chanterelle.</p>
+<p>Generally, you’d want to have at least two subprojects, one for compiling and one for deploying/testing. This is because
+the deployer and test suite will surely depend on PureScript bindings generated during the compilation phase, and thus
+cannot be part of the same project. An example of this can be seen in <a class="reference external" href="https://github.com/f-o-a-m/parking-dao">the Parking DAO example</a>.</p>
+<div class="section" id="invoking-the-compiler">
+<h2>Invoking the compiler<a class="headerlink" href="#invoking-the-compiler" title="Permalink to this headline">¶</a></h2>
+<p>A sample application to invoke the compiler is presented below. This is nearly identical to the Parking DAO compile script,
+with the exception that this script also invokes the Genesis block generator. One may leave out the <code class="docutils literal notranslate"><span class="pre">runGenesisGenerator</span></code> bit
+if this functionality is not required. One may want to store this script in a directory outside where their PureScript build system
+(such as Pulp) would keep code. One such location is <code class="docutils literal notranslate"><span class="pre">compile/Compile.purs</span></code> (as opposed to say, <code class="docutils literal notranslate"><span class="pre">src/compile/Compile.purs</span></code>).</p>
+<div class="highlight-haskell notranslate"><div class="highlight"><pre><span></span><span class="kr">module</span> <span class="nn">CompileMain</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">Prelude</span>
+<span class="kr">import</span> <span class="nn">Chanterelle</span> <span class="p">(</span><span class="nf">compileMain</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Chanterelle.Genesis</span> <span class="p">(</span><span class="nf">runGenesisGenerator</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Aff.Console</span> <span class="p">(</span><span class="kt">CONSOLE</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff</span> <span class="p">(</span><span class="kt">Eff</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff.Exception</span> <span class="p">(</span><span class="kt">EXCEPTION</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Control.Monad.Eff.Now</span> <span class="p">(</span><span class="kt">NOW</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Node.FS.Aff</span> <span class="p">(</span><span class="kt">FS</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Node.Process</span> <span class="p">(</span><span class="kt">PROCESS</span><span class="p">)</span>
+<span class="kr">import</span> <span class="nn">Network.Ethereum.Web3</span> <span class="p">(</span><span class="kt">ETH</span><span class="p">)</span>
+
+<span class="nf">main</span> <span class="ow">::</span> <span class="n">forall</span> <span class="n">eff</span><span class="o">.</span>
+      <span class="kt">Eff</span>
+        <span class="p">(</span> <span class="n">console</span> <span class="ow">::</span> <span class="kt">CONSOLE</span>
+        <span class="p">,</span> <span class="n">fs</span> <span class="ow">::</span> <span class="kt">FS</span>
+        <span class="p">,</span> <span class="n">process</span> <span class="ow">::</span> <span class="kt">PROCESS</span>
+        <span class="p">,</span> <span class="n">exception</span> <span class="ow">::</span> <span class="kt">EXCEPTION</span>
+        <span class="p">,</span> <span class="n">now</span> <span class="ow">::</span> <span class="kt">NOW</span>
+        <span class="p">,</span> <span class="n">eth</span> <span class="ow">::</span> <span class="kt">ETH</span>
+        <span class="o">|</span> <span class="n">eff</span>
+        <span class="p">)</span>
+        <span class="kt">Unit</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="n">compileMain</span>
+  <span class="n">runGenesisGenerator</span> <span class="s">&quot;./base-genesis-block.json&quot;</span> <span class="s">&quot;./injected-genesis-block.json&quot;</span>
+</pre></div>
+</div>
+<p>We can then invoke this script as follows</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pulp build --src-path compile -m CompileMain --to compile.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
+node compile.js --log-level info<span class="p">;</span> <span class="se">\</span>
+rm -f compile.js
+</pre></div>
+</div>
+<p>This will compile and purescript-web3 codegen all the modules specified in <code class="docutils literal notranslate"><span class="pre">chanterelle.json</span></code> as well as generate a genesis block whose contents
+are those of <code class="docutils literal notranslate"><span class="pre">./base-genesis-block.json</span></code> with injected libraries appended into <code class="docutils literal notranslate"><span class="pre">allocs</span></code> and written out to <code class="docutils literal notranslate"><span class="pre">./injected-genesis-block.json</span></code>.</p>
+<p>Note that we do not use <code class="docutils literal notranslate"><span class="pre">pulp</span> <span class="pre">run</span></code> as we then have no means to pass command line arguments to the compiler.</p>
+</div>
+<div class="section" id="compiler-arguments">
+<h2>Compiler arguments<a class="headerlink" href="#compiler-arguments" title="Permalink to this headline">¶</a></h2>
+<p>Currently the following command line arguments are supported for the compiler phase when ran with <code class="docutils literal notranslate"><span class="pre">compileMain</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">--log-level</span></code>: One of <code class="docutils literal notranslate"><span class="pre">debug</span></code>, <code class="docutils literal notranslate"><span class="pre">info</span></code>, <code class="docutils literal notranslate"><span class="pre">warn</span></code>, or <code class="docutils literal notranslate"><span class="pre">error</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">info</span></code>.
+This option changes the level of logging to the console.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="genesis-blocks.html" class="btn btn-neutral float-right" title="Genesis Blocks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dependencies.html" class="btn btn-neutral" title="Dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Martin Allen, Ilya Ostrovskiy.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          
+          SphinxRtdTheme.Navigation.enableSticky();
+          
+      });
+  </script> 
+
+</body>
+</html>
